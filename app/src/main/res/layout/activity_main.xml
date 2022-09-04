@@ -42,25 +42,51 @@
         />
     </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_bg"
         android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:padding="7dp">
 
+
+
+        <LinearLayout
+            android:id="@+id/cam_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity = "left"
+            android:layout_weight="1">
         <ImageButton
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_linked_camera_24"/>
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/selector" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/button2"
+        <LinearLayout
+            android:id="@+id/gal_lay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_image_24" />
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/button2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selector_gallery" />
+        </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 

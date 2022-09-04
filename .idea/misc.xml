@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-anydpi/camera_on.xml" value="0.316" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-anydpi/layout_bg.xml" value="0.1855" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-anydpi/selector.xml" value="0.316" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-anydpi/selector_gallery.xml" value="0.316" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-v24/gallery_on.xml" value="0.316" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2975" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.316" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable/ic_baseline_linked_camera_24.xml" value="0.3545" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/drawable/nav_background_coloured.xml" value="0.1" />
-        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/layout/fragment_camera.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/layout/layout_bg.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/EcoClean/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1859375" />
         <entry key="..\:/Users/dhars/AndroidStudioProjects/pls/app/src/main/res/layout/activity_main.xml" value="0.2341485507246377" />
       </map>
