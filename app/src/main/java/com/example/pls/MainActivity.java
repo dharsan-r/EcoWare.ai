@@ -1,7 +1,6 @@
 package com.example.pls;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -13,52 +12,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.RectF;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.Size;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.AspectRatio;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
+
 
 import com.example.pls.ml.Model;
 
 import org.tensorflow.lite.DataType;
-import org.tensorflow.lite.Interpreter;
-import org.tensorflow.lite.nnapi.NnApiDelegate;
-import org.tensorflow.lite.support.common.FileUtil;
-import org.tensorflow.lite.support.common.ops.NormalizeOp;
-import org.tensorflow.lite.support.image.ImageProcessor;
-import org.tensorflow.lite.support.image.TensorImage;
-import org.tensorflow.lite.support.image.ops.ResizeOp;
-import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp;
-import org.tensorflow.lite.support.image.ops.Rot90Op;
+
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import kotlin.random.Random;
 
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -80,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        camera = (ImageButton) findViewById(R.id.button);
-        gallery = (ImageButton) findViewById(R.id.button2);
-        logo = (ImageButton) findViewById(R.id.button3);
-        battery = (ImageButton) findViewById(R.id.button4);
+        camera = findViewById(R.id.button);
+        gallery = findViewById(R.id.button2);
+        logo = findViewById(R.id.button3);
+        battery = findViewById(R.id.button4);
 
         result = findViewById(R.id.result);
         bin_name = findViewById(R.id.bin_name);
@@ -99,16 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, 3);
-                    scrollView.scrollTo(0, 0);
-                }else{
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
-                }
+        camera.setOnClickListener(view -> {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 3);
+                scrollView.scrollTo(0, 0);
+                blue_bin.setVisibility(View.GONE);
+                green_bin.setVisibility(View.GONE);
+                grey_bin.setVisibility(View.GONE);
+
+            }else{
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
             }
         });
 
@@ -118,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(cameraIntent, 1);
                 scrollView.scrollTo(0, 0);
+                blue_bin.setVisibility(View.GONE);
+                green_bin.setVisibility(View.GONE);
+                grey_bin.setVisibility(View.GONE);
             }
         });
         logo.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Uri uri = Uri.parse("https://github.com/dharsan-r/EcoClean"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+                scrollView.scrollTo(0, 0);
             }
         });
         battery.setOnClickListener(new View.OnClickListener() {
@@ -155,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i<imageSize; i++){
                 for(int j = 0; j<imageSize; j++){
                     int val = intValues[pixel++];
-                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 1));
-                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 1));
-                    byteBuffer.putFloat((val & 0xFF) * (1.f / 1));
+                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f));
+                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f));
+                    byteBuffer.putFloat((val & 0xFF) * (1.f));
                 }
             }
 
@@ -212,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 classifyImage(image);
 
             }else{
+                assert data != null;
                 Uri dat = data.getData();
                 Bitmap image = null;
                 try {
@@ -259,25 +232,25 @@ public class MainActivity extends AppCompatActivity {
         String s = item + "\n" + "City: " + city_name + "\n";
         String j = "\nYou may place " + item + " in the " + bin + " bin.\n";
 
-        if(bin == "battery") {
+        if(bin.equals("battery")) {
             arrow.setVisibility(View.VISIBLE);
             s = s + "\nYou may discard batteries at specific locations that allow for battery disposal.\n";
             bin_label = "\nClick the battery button bellow to find battery recycling centers:\n";
             battery.setVisibility(View.VISIBLE);
 
-        }else if(bin == "grey recycling"){
+        }else if(bin.equals("grey recycling")){
             arrow.setVisibility(View.VISIBLE);
             grey_bin.setVisibility(View.VISIBLE);
             s = s+j;
             bin_label = "\nThis is the grey recycling bin:\n";
 
-        }else if(bin == "blue recycling"){
+        }else if(bin.equals("blue recycling")){
             arrow.setVisibility(View.VISIBLE);
             blue_bin.setVisibility(View.VISIBLE);
             s = s+j;
             bin_label = "\nThis is the blue recycling bin:\n";
         }
-        else if(bin == "green compost"){
+        else if(bin.equals("green compost")){
             arrow.setVisibility(View.VISIBLE);
             green_bin.setVisibility(View.VISIBLE);
             s = s+j;
