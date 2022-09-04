@@ -1,5 +1,5 @@
 <p align="center"> 
-<img width="180" height="96" src="app/src/main/res/drawable/logo5.png">
+<img width="180" height="180" src="app/src/main/res/drawable/logo5.png">
 </p>
 
 # EcoWare.ai
