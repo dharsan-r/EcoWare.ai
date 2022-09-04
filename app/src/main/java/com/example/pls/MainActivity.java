@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,7 +64,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button camera,gallery;
+    ImageButton camera,gallery;
     ImageView imageView;
     TextView result;
     int imageSize = 300;
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        camera = findViewById(R.id.button);
-        gallery = findViewById(R.id.button2);
+        camera = (ImageButton) findViewById(R.id.button);
+        gallery = (ImageButton) findViewById(R.id.button2);
 
         result = findViewById(R.id.result);
         imageView = findViewById(R.id.imageView);
@@ -94,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(cameraIntent, 1);
+                Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(cameraIntent, 1);
             }
         });
 
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     "paper" ,
                     "plastic" ,
                     "trash"};
-            result.setText(classes[maxPos]);
+            result.setText(displayGarbageDisposalBin(classes[maxPos]));
 
             // Releases model resources if no longer used.
             model.close();
@@ -184,5 +185,42 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public String displayGarbageDisposalBin(String item){
+        String bin = "";
+        switch(item){
+            case "cardboard":
+            case "glass1":
+                bin = "recycling blue";
+                break;
+            case "food waste":
+                bin = "garbage";
+                break;
+            case "metal":
+                bin = "recycling blue";
+                break;
+            case "paper":
+                bin = "recycling blue";
+                break;
+            case "plastic" :
+                bin = "garbage";
+                break;
+            case "trash":
+                bin = "garbage";
+                break;
+            case "battery":
+                bin = "battery";
+                break;
+        }
+        String s = null;
+        if(bin == "recycling blue"){
+            s = "You may place " + item + " in the " + bin + " bin.\nJust a reminder to place paper and other recycling in separate containers";
+        }
+        if(bin == "battery"){
+            s = "You may discard batteries at specific locations that allow for battery disposable. Find more information at https://locations.call2recycle.ca/on/london/%22";
+        }
+    return s;
     }
 }
