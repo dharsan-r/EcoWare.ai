@@ -48,7 +48,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="imagePath" value="C:\Users\dhars\Desktop\logo3.png" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -82,7 +84,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="selector" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\dhars\Desktop\logo3.png" />
+                                      <entry key="outputName" value="selectorsda" />
                                       <entry key="theme" value="HOLO_DARK" />
                                     </map>
                                   </option>
@@ -140,6 +144,11 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="outputName" value="main_logo_1" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -338,7 +347,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/keyboard_arrow_down/baseline_keyboard_arrow_down_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/battery_charging_full/baseline_battery_charging_full_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -348,7 +357,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_keyboard_arrow_down_24" />
+                            <entry key="color" value="ffb54d" />
+                            <entry key="outputName" value="ic_baseline_battery_charging_full_24" />
                             <entry key="sourceFile" value="C:\Users\dhars\AndroidStudioProjects\EcoClean" />
                           </map>
                         </option>

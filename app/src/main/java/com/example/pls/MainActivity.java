@@ -1,6 +1,7 @@
 package com.example.pls;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import android.Manifest;
@@ -64,21 +66,38 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton camera,gallery;
-    ImageView imageView;
-    TextView result;
+    ImageButton camera,gallery,logo, battery;
+    ScrollView scrollView;
+    ImageView imageView, grey_bin, blue_bin, green_bin,arrow;
+    TextView result, bin_name;
     int imageSize = 300;
+    String city_name = "Kingston, ON";
+    String bin_label = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         camera = (ImageButton) findViewById(R.id.button);
         gallery = (ImageButton) findViewById(R.id.button2);
+        logo = (ImageButton) findViewById(R.id.button3);
+        battery = (ImageButton) findViewById(R.id.button4);
 
         result = findViewById(R.id.result);
+        bin_name = findViewById(R.id.bin_name);
         imageView = findViewById(R.id.imageView);
+        grey_bin = findViewById(R.id.grey_bin);
+        blue_bin = findViewById(R.id.blue_bin);
+        green_bin = findViewById(R.id.green_bin);
+        arrow = findViewById(R.id.arrow);
+
+        scrollView = findViewById(R.id.scrollView);
+
+
+
+
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, 3);
+                    scrollView.scrollTo(0, 0);
                 }else{
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
                 }
@@ -97,6 +117,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(cameraIntent, 1);
+                scrollView.scrollTo(0, 0);
+            }
+        });
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/dharsan-r/EcoClean"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        battery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://www.cityofkingston.ca/resident/garbage-recycling/household/batteries"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 
@@ -141,14 +178,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            String[] classes = {"cardboard" ,
-                    "food waste" ,
-                    "glass1" ,
-                    "metal" ,
-                    "paper" ,
-                    "plastic" ,
-                    "trash"};
+            String[] classes = {"Battery",
+                    "Cardboard" ,
+                    "Food Waste" ,
+                    "Glass" ,
+                    "Metal" ,
+                    "Paper" ,
+                    "Plastic" ,
+                    "Trash"};
             result.setText(displayGarbageDisposalBin(classes[maxPos]));
+            if (bin_label != null){
+                bin_name.setText(bin_label);
+            }
 
             // Releases model resources if no longer used.
             model.close();
@@ -191,35 +232,56 @@ public class MainActivity extends AppCompatActivity {
     public String displayGarbageDisposalBin(String item){
         String bin = "";
         switch(item){
-            case "cardboard":
-            case "glass1":
-                bin = "recycling blue";
+
+            case "Cardboard":
+            case "Plastic" :
+            case "Paper":
+                bin = "grey recycling";
                 break;
-            case "food waste":
+
+            case "Glass":
+            case "Metal":
+                bin = "blue recycling";
+                break;
+
+            case "Food Waste":
+                bin = "green compost";
+                break;
+
+            case "Trash":
                 bin = "garbage";
                 break;
-            case "metal":
-                bin = "recycling blue";
-                break;
-            case "paper":
-                bin = "recycling blue";
-                break;
-            case "plastic" :
-                bin = "garbage";
-                break;
-            case "trash":
-                bin = "garbage";
-                break;
-            case "battery":
+
+            case "Battery":
                 bin = "battery";
                 break;
         }
-        String s = null;
-        if(bin == "recycling blue"){
-            s = "You may place " + item + " in the " + bin + " bin.\nJust a reminder to place paper and other recycling in separate containers";
+        String s = item + "\n" + "City: " + city_name + "\n";
+        String j = "\nYou may place " + item + " in the " + bin + " bin.\n";
+
+        if(bin == "battery") {
+            arrow.setVisibility(View.VISIBLE);
+            s = s + "\nYou may discard batteries at specific locations that allow for battery disposal.\n";
+            bin_label = "\nClick the battery button bellow to find battery recycling centers:\n";
+            battery.setVisibility(View.VISIBLE);
+
+        }else if(bin == "grey recycling"){
+            arrow.setVisibility(View.VISIBLE);
+            grey_bin.setVisibility(View.VISIBLE);
+            s = s+j;
+            bin_label = "\nThis is the grey recycling bin:\n";
+
+        }else if(bin == "blue recycling"){
+            arrow.setVisibility(View.VISIBLE);
+            blue_bin.setVisibility(View.VISIBLE);
+            s = s+j;
+            bin_label = "\nThis is the blue recycling bin:\n";
         }
-        if(bin == "battery"){
-            s = "You may discard batteries at specific locations that allow for battery disposable. Find more information at https://locations.call2recycle.ca/on/london/%22";
+        else if(bin == "green compost"){
+            arrow.setVisibility(View.VISIBLE);
+            green_bin.setVisibility(View.VISIBLE);
+            s = s+j;
+            bin_label = "\nThis is the green compost bin:\n";
         }
     return s;
     }

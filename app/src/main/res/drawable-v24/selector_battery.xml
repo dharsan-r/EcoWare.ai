@@ -1,0 +1,19 @@
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:drawable="@drawable/battery_on"
+      android:state_focused="true"
+      android:state_pressed="true"/>
+  <item
+      android:drawable="@drawable/battery_on"
+      android:state_focused="false"
+      android:state_pressed="true"/>
+  <item
+      android:drawable="@drawable/ic_baseline_battery_charging_full_24"
+      android:state_focused="true"
+      android:state_pressed="false"/>
+  <item
+      android:drawable="@drawable/ic_baseline_battery_charging_full_24"
+      android:state_focused="false"
+      android:state_pressed="false"/>
+</selector>
