@@ -37,3 +37,5 @@ Using Google's Location API to automatically locate the city and provide user wi
 
 ### Sources:
 Portion of Images : https://github.com/AgaMiko/waste-datasets-review<br>TensorFlow Help: https://github.com/IJ-Apps/Image-Classification-App-with-Custom-TensorFlow-Model
+
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/GKmOgHtBTT8" title="EcoWare ai" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
