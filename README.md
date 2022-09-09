@@ -14,7 +14,7 @@ We got inspiration one day trying to figure out where to recycle batteries, we w
 EcoWare.ai is an android app that uses ML to scan images of waste, classifies it, and gives people suggestions and direct links on proper disposal of the item. It helps reduce e-waste and promotes recycling by making information easily accessible to everyone. 
 
 ## Demonstration
-https://user-images.githubusercontent.com/97148051/189453198-9a6006cd-2aa6-454f-a3f5-ecfab23dcab0.mp4
+https://user-images.githubusercontent.com/97148051/189453473-c93ce311-34bf-4d16-a502-e6c6d8a50d14.mp4
 
 ## How we built it :computer:
 For the front end we built an Android app using Android Studio XML and Java. For the back end we used Azure’s custom vision service to train an ML model using various pictures of waste and labeling them. We used a data set with a total of over 2800 photos.  We then exported our ML model to TensorFlow Lite model to locally run our classification model on the android phone. 
